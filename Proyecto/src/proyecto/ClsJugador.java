@@ -26,8 +26,9 @@ public class ClsJugador implements Serializable{
         this.usuario = usuario;
         this.id=id;
         this.victorias=victorias;
+        
     }
-    
+
     public ClsJugador(String usuario) {
         this.usuario = usuario;
     }

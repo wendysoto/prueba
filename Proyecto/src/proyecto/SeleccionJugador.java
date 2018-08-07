@@ -5,6 +5,7 @@ package proyecto;
 import com.sun.javafx.font.Glyph;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -21,9 +22,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
     /**
      * Creates new form RegistroJugador
      */
-    ArrayList<Jugadores> ListaPersonajes = new ArrayList<Jugadores>();
     
-    ArrayList<Object> jugador=new ArrayList<>();
+     ArrayList<Object> jugador=new ArrayList<>();
     int cont=0;
     int victorias=0;
     
@@ -32,17 +32,11 @@ public class SeleccionJugador extends javax.swing.JFrame {
 
     DefaultComboBoxModel listaJugadoresModel = 
             new DefaultComboBoxModel(jugador.toArray());
-    
-   String[] personajes = new String[]{"Neptuno","Fire","Lodo","Avatar"};
-    DefaultComboBoxModel combopersonajes= new DefaultComboBoxModel(personajes);
-    ///////////
+  
     
     boolean activarjugador1=false;
     boolean activarjugador2=false;
     
-     ////////////////////pantalla Batalla//////////////
-         ArrayList ListaJugadas = new ArrayList ();
-    boolean repetircancion = true; 
     
     int vida1;
     int estamina1;
@@ -63,7 +57,6 @@ public class SeleccionJugador extends javax.swing.JFrame {
     public SeleccionJugador() {
         initComponents();
         
-        cmbPersonajes.setModel(combopersonajes);
         
         jugador=controller.extraerObjetos("jugadores.dat");
      
@@ -93,8 +86,11 @@ public class SeleccionJugador extends javax.swing.JFrame {
          btnEmpezar.setEnabled(false);
                   
        
+        
+       
+      
     }
-
+    
     public void llenarCombo(){
        if(jugador.size() > 0){
             cmbJugadores.setEnabled(true);
@@ -182,6 +178,7 @@ public class SeleccionJugador extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtVida2 = new javax.swing.JTextField();
         txtEstamina2 = new javax.swing.JTextField();
+        btnRegresar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         btnAtaque1 = new javax.swing.JButton();
         btnDefenza1 = new javax.swing.JButton();
@@ -193,8 +190,12 @@ public class SeleccionJugador extends javax.swing.JFrame {
         btnCurar2 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         lblLuchador1 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         lblLuchador2 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        PantallaCargar = new javax.swing.JFrame();
+        btnJugar = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         lblTituloPersonajes = new javax.swing.JLabel();
         cmbJugador1 = new javax.swing.JComboBox<>();
@@ -209,7 +210,11 @@ public class SeleccionJugador extends javax.swing.JFrame {
         lblPersonaje2 = new javax.swing.JLabel();
         lblFondo2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+
+        RegistroJugador.setPreferredSize(new java.awt.Dimension(890, 670));
+        RegistroJugador.getContentPane().setLayout(null);
 
         cmbJugadores.setBackground(new java.awt.Color(102, 255, 255));
         cmbJugadores.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -219,18 +224,28 @@ public class SeleccionJugador extends javax.swing.JFrame {
                 cmbJugadoresActionPerformed(evt);
             }
         });
+        RegistroJugador.getContentPane().add(cmbJugadores);
+        cmbJugadores.setBounds(159, 42, 255, 30);
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nombre");
+        RegistroJugador.getContentPane().add(jLabel4);
+        jLabel4.setBounds(135, 93, 60, 14);
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Apellido");
+        RegistroJugador.getContentPane().add(jLabel5);
+        jLabel5.setBounds(135, 131, 60, 14);
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Cedula");
+        RegistroJugador.getContentPane().add(jLabel6);
+        jLabel6.setBounds(135, 169, 60, 14);
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Usuario");
+        RegistroJugador.getContentPane().add(jLabel7);
+        jLabel7.setBounds(135, 210, 60, 14);
 
         txtNombre.setBackground(new java.awt.Color(0, 0, 0));
         txtNombre.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -239,24 +254,32 @@ public class SeleccionJugador extends javax.swing.JFrame {
         txtNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtNombre.setCaretColor(new java.awt.Color(255, 255, 255));
         txtNombre.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        RegistroJugador.getContentPane().add(txtNombre);
+        txtNombre.setBounds(205, 80, 183, 30);
 
         txtApellido.setBackground(new java.awt.Color(0, 0, 0));
         txtApellido.setForeground(new java.awt.Color(255, 255, 255));
         txtApellido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtApellido.setCaretColor(new java.awt.Color(255, 255, 255));
         txtApellido.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        RegistroJugador.getContentPane().add(txtApellido);
+        txtApellido.setBounds(205, 118, 183, 30);
 
         txtCedula.setBackground(new java.awt.Color(0, 0, 0));
         txtCedula.setForeground(new java.awt.Color(255, 255, 255));
         txtCedula.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCedula.setCaretColor(new java.awt.Color(255, 255, 255));
         txtCedula.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        RegistroJugador.getContentPane().add(txtCedula);
+        txtCedula.setBounds(205, 156, 183, 30);
 
         txtUsuario.setBackground(new java.awt.Color(0, 0, 0));
         txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUsuario.setCaretColor(new java.awt.Color(255, 255, 255));
         txtUsuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        RegistroJugador.getContentPane().add(txtUsuario);
+        txtUsuario.setBounds(205, 197, 183, 30);
 
         btnGuardar.setText("GUARDAR");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -264,6 +287,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
+        RegistroJugador.getContentPane().add(btnGuardar);
+        btnGuardar.setBounds(463, 129, 100, 40);
 
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -271,6 +296,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
+        RegistroJugador.getContentPane().add(btnEliminar);
+        btnEliminar.setBounds(463, 196, 100, 43);
 
         btnModificar.setText("MODIFICAR");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -278,6 +305,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
+        RegistroJugador.getContentPane().add(btnModificar);
+        btnModificar.setBounds(463, 66, 100, 45);
 
         tblRegistros.setBackground(new java.awt.Color(0, 0, 0));
         tblRegistros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -301,114 +330,36 @@ public class SeleccionJugador extends javax.swing.JFrame {
             tblRegistros.getColumnModel().getColumn(5).setHeaderValue("Victorias:");
         }
 
+        RegistroJugador.getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(60, 270, 511, 120);
+
+        btnSeleccionPersonaje.setBackground(new java.awt.Color(51, 255, 255));
+        btnSeleccionPersonaje.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
         btnSeleccionPersonaje.setText("Ir a la Selección de Personaje");
         btnSeleccionPersonaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionPersonajeActionPerformed(evt);
             }
         });
+        RegistroJugador.getContentPane().add(btnSeleccionPersonaje);
+        btnSeleccionPersonaje.setBounds(176, 410, 260, 46);
 
         lblFondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registro.jpg"))); // NOI18N
         lblFondo1.setMaximumSize(new java.awt.Dimension(5000, 5000));
         lblFondo1.setMinimumSize(new java.awt.Dimension(5000, 5000));
-
-        javax.swing.GroupLayout RegistroJugadorLayout = new javax.swing.GroupLayout(RegistroJugador.getContentPane());
-        RegistroJugador.getContentPane().setLayout(RegistroJugadorLayout);
-        RegistroJugadorLayout.setHorizontalGroup(
-            RegistroJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(159, 159, 159)
-                .addComponent(cmbJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(205, 205, 205)
-                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(230, 230, 230)
-                .addComponent(btnSeleccionPersonaje, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(205, 205, 205)
-                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(463, 463, 463)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(463, 463, 463)
-                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(lblFondo1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        RegistroJugadorLayout.setVerticalGroup(
-            RegistroJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(cmbJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addGroup(RegistroJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel4))
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(RegistroJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addComponent(jLabel6)
-                .addGap(14, 14, 14)
-                .addGroup(RegistroJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel7))
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(btnSeleccionPersonaje, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(196, 196, 196)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(jLabel5))
-            .addGroup(RegistroJugadorLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(lblFondo1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        RegistroJugador.getContentPane().add(lblFondo1);
+        lblFondo1.setBounds(0, 30, 600, 530);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         panelFondo.setBackground(new java.awt.Color(153, 255, 153));
         panelFondo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelFondo.setMaximumSize(new java.awt.Dimension(100, 100));
+        panelFondo.setMinimumSize(new java.awt.Dimension(795, 627));
         panelFondo.setPreferredSize(new java.awt.Dimension(600, 600));
+        panelFondo.setLayout(null);
 
+        jPanel4.setBackground(new java.awt.Color(255, 204, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblNombreJugador1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -458,6 +409,10 @@ public class SeleccionJugador extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        panelFondo.add(jPanel4);
+        jPanel4.setBounds(12, 25, 252, 149);
+
+        jPanel5.setBackground(new java.awt.Color(102, 153, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblNombreJugador2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -472,28 +427,29 @@ public class SeleccionJugador extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblNombreJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel8))
                         .addGap(24, 24, 24)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtVida2)
-                            .addComponent(txtEstamina2))))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtVida2, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                            .addComponent(txtEstamina2)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblNombreJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(lblNombreJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(lblNombreJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel3))
+                    .addComponent(jLabel3)
                     .addComponent(txtVida2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -502,6 +458,21 @@ public class SeleccionJugador extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
+        panelFondo.add(jPanel5);
+        jPanel5.setBounds(510, 220, 236, 134);
+
+        btnRegresar.setBackground(new java.awt.Color(255, 153, 204));
+        btnRegresar.setFont(new java.awt.Font("Monotype Corsiva", 2, 14)); // NOI18N
+        btnRegresar.setText("REGRESAR");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        panelFondo.add(btnRegresar);
+        btnRegresar.setBounds(280, 610, 160, 50);
+
+        jPanel6.setBackground(new java.awt.Color(0, 0, 0));
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnAtaque1.setText("Ataque");
@@ -523,11 +494,6 @@ public class SeleccionJugador extends javax.swing.JFrame {
         });
 
         btnAtaque2.setText("Ataque");
-        btnAtaque2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtaque2ActionPerformed(evt);
-            }
-        });
 
         btnAtaqueFinal2.setText("Ataque Final");
 
@@ -535,19 +501,20 @@ public class SeleccionJugador extends javax.swing.JFrame {
 
         btnCurar2.setText("Curar");
 
-        jLabel9.setText("jLabel9");
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(82, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8))
                     .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAtaque1)
                             .addComponent(btnDefenza1))
@@ -562,8 +529,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnAtaqueFinal2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCurar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(68, 68, 68))))
+                            .addComponent(btnCurar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(68, 68, 68))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -580,66 +547,25 @@ public class SeleccionJugador extends javax.swing.JFrame {
                     .addComponent(btnCurar1)
                     .addComponent(btnDefenza2)
                     .addComponent(btnCurar2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/vs.jpg"))); // NOI18N
-        jLabel11.setMinimumSize(new java.awt.Dimension(468, 468));
-        jLabel11.setName(""); // NOI18N
+        panelFondo.add(jPanel6);
+        jPanel6.setBounds(20, 400, 710, 200);
+        panelFondo.add(lblLuchador1);
+        lblLuchador1.setBounds(80, 200, 228, 170);
+        panelFondo.add(lblLuchador2);
+        lblLuchador2.setBounds(522, 25, 240, 157);
 
-        javax.swing.GroupLayout panelFondoLayout = new javax.swing.GroupLayout(panelFondo);
-        panelFondo.setLayout(panelFondoLayout);
-        panelFondoLayout.setHorizontalGroup(
-            panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFondoLayout.createSequentialGroup()
-                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelFondoLayout.createSequentialGroup()
-                        .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelFondoLayout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(lblLuchador1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelFondoLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelFondoLayout.createSequentialGroup()
-                                .addGap(225, 225, 225)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFondoLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblLuchador2, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(panelFondoLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(333, 333, 333)
-                .addComponent(jLabel11, 0, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelFondoLayout.setVerticalGroup(
-            panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFondoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(442, 442, 442))
-            .addGroup(panelFondoLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(panelFondoLayout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblLuchador1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelFondoLayout.createSequentialGroup()
-                        .addComponent(lblLuchador2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(54, 54, 54)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/base.gif"))); // NOI18N
+        panelFondo.add(jLabel13);
+        jLabel13.setBounds(0, 430, 790, 320);
 
-        jLabel11.getAccessibleContext().setAccessibleParent(jPanel6);
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/2.gif"))); // NOI18N
+        panelFondo.add(jLabel15);
+        jLabel15.setBounds(0, -210, 750, 890);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -647,15 +573,15 @@ public class SeleccionJugador extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 798, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(140, 140, 140))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         panelFondo.getAccessibleContext().setAccessibleParent(panelFondo);
@@ -667,48 +593,75 @@ public class SeleccionJugador extends javax.swing.JFrame {
             .addGroup(PantallaBatallaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         PantallaBatallaLayout.setVerticalGroup(
             PantallaBatallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PantallaBatallaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
+        PantallaCargar.getContentPane().setLayout(null);
+
+        btnJugar.setBackground(new java.awt.Color(255, 51, 102));
+        btnJugar.setFont(new java.awt.Font("Lucida Calligraphy", 3, 18)); // NOI18N
+        btnJugar.setText("JUGAR");
+        btnJugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJugarActionPerformed(evt);
+            }
+        });
+        PantallaCargar.getContentPane().add(btnJugar);
+        btnJugar.setBounds(190, 250, 160, 30);
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cargando.gif"))); // NOI18N
+        PantallaCargar.getContentPane().add(jLabel16);
+        jLabel16.setBounds(0, 0, 500, 300);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 500));
+        setMinimumSize(new java.awt.Dimension(1078, 750));
         getContentPane().setLayout(null);
 
-        lblTitulo.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(204, 0, 0));
-        lblTitulo.setText("battle pro");
+        lblTitulo.setBackground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setFont(new java.awt.Font("Elephant", 2, 48)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 0, 0));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Battle pro");
+        lblTitulo.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), null));
         getContentPane().add(lblTitulo);
-        lblTitulo.setBounds(330, 30, 161, 44);
+        lblTitulo.setBounds(260, 30, 300, 44);
 
+        lblTituloPersonajes.setBackground(new java.awt.Color(255, 255, 51));
         lblTituloPersonajes.setFont(new java.awt.Font("Franklin Gothic Heavy", 0, 18)); // NOI18N
         lblTituloPersonajes.setForeground(new java.awt.Color(204, 0, 0));
         lblTituloPersonajes.setText("PERSONAJES");
         getContentPane().add(lblTituloPersonajes);
-        lblTituloPersonajes.setBounds(325, 110, 110, 21);
+        lblTituloPersonajes.setBounds(330, 120, 140, 21);
 
+        cmbJugador1.setFont(new java.awt.Font("Lucida Handwriting", 0, 12)); // NOI18N
+        cmbJugador1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         cmbJugador1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbJugador1ActionPerformed(evt);
             }
         });
         getContentPane().add(cmbJugador1);
-        cmbJugador1.setBounds(42, 77, 120, 30);
+        cmbJugador1.setBounds(42, 77, 150, 30);
 
+        cmbJugador2.setBackground(new java.awt.Color(204, 255, 255));
+        cmbJugador2.setFont(new java.awt.Font("Lucida Handwriting", 0, 12)); // NOI18N
         cmbJugador2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbJugador2ActionPerformed(evt);
             }
         });
         getContentPane().add(cmbJugador2);
-        cmbJugador2.setBounds(561, 77, 135, 30);
+        cmbJugador2.setBounds(590, 90, 160, 30);
 
+        btnRegistrarJugador.setBackground(new java.awt.Color(0, 255, 153));
+        btnRegistrarJugador.setFont(new java.awt.Font("Segoe Script", 2, 18)); // NOI18N
         btnRegistrarJugador.setText("REGISTRAR JUGADOR");
         btnRegistrarJugador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -716,19 +669,23 @@ public class SeleccionJugador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnRegistrarJugador);
-        btnRegistrarJugador.setBounds(300, 430, 170, 30);
+        btnRegistrarJugador.setBounds(300, 430, 280, 40);
 
-        cmbPersonajes.setFont(new java.awt.Font("Felix Titling", 0, 12)); // NOI18N
+        cmbPersonajes.setBackground(new java.awt.Color(0, 255, 51));
+        cmbPersonajes.setFont(new java.awt.Font("Lucida Handwriting", 3, 12)); // NOI18N
+        cmbPersonajes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fuego", "Tierra", "Aire", "Agua" }));
         cmbPersonajes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbPersonajesActionPerformed(evt);
             }
         });
         getContentPane().add(cmbPersonajes);
-        cmbPersonajes.setBounds(305, 140, 150, 30);
+        cmbPersonajes.setBounds(310, 150, 200, 40);
         getContentPane().add(lblPersonaje1);
-        lblPersonaje1.setBounds(40, 130, 130, 130);
+        lblPersonaje1.setBounds(50, 130, 130, 130);
 
+        btnEmpezar.setBackground(new java.awt.Color(255, 255, 51));
+        btnEmpezar.setFont(new java.awt.Font("Viner Hand ITC", 0, 24)); // NOI18N
         btnEmpezar.setText("Empezar");
         btnEmpezar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -736,10 +693,12 @@ public class SeleccionJugador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnEmpezar);
-        btnEmpezar.setBounds(340, 380, 90, 30);
+        btnEmpezar.setBounds(360, 380, 140, 30);
         getContentPane().add(lblPersonaje3);
-        lblPersonaje3.setBounds(305, 178, 146, 124);
+        lblPersonaje3.setBounds(330, 240, 146, 124);
 
+        btnSelectJugador1.setBackground(new java.awt.Color(51, 102, 255));
+        btnSelectJugador1.setFont(new java.awt.Font("Segoe Script", 1, 14)); // NOI18N
         btnSelectJugador1.setText("Seleccionar Jugador 1 ");
         btnSelectJugador1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -747,8 +706,10 @@ public class SeleccionJugador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSelectJugador1);
-        btnSelectJugador1.setBounds(30, 291, 180, 30);
+        btnSelectJugador1.setBounds(30, 291, 210, 60);
 
+        bntSelectJugador2.setBackground(new java.awt.Color(102, 102, 255));
+        bntSelectJugador2.setFont(new java.awt.Font("Segoe Script", 1, 14)); // NOI18N
         bntSelectJugador2.setText("Seleccionar Jugador 2");
         bntSelectJugador2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -756,21 +717,21 @@ public class SeleccionJugador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(bntSelectJugador2);
-        bntSelectJugador2.setBounds(547, 290, 180, 30);
+        bntSelectJugador2.setBounds(580, 290, 210, 60);
         getContentPane().add(lblPersonaje2);
         lblPersonaje2.setBounds(570, 140, 120, 130);
 
-        lblFondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondomain.jpg"))); // NOI18N
-        lblFondo2.setMaximumSize(new java.awt.Dimension(800, 600));
-        lblFondo2.setMinimumSize(new java.awt.Dimension(800, 600));
+        lblFondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoP.jpg"))); // NOI18N
+        lblFondo2.setMaximumSize(new java.awt.Dimension(700, 600));
+        lblFondo2.setMinimumSize(new java.awt.Dimension(700, 600));
         getContentPane().add(lblFondo2);
-        lblFondo2.setBounds(0, -70, 810, 660);
+        lblFondo2.setBounds(0, -70, 970, 650);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
+            .addGap(0, 810, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -778,12 +739,15 @@ public class SeleccionJugador extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(30, 20, 750, 470);
+        jPanel1.setBounds(30, 20, 810, 470);
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/clic.gif"))); // NOI18N
-        jLabel12.setText("jLabel12");
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/empezar.gif"))); // NOI18N
+        getContentPane().add(jLabel10);
+        jLabel10.setBounds(0, 510, 770, 200);
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/empezar.gif"))); // NOI18N
         getContentPane().add(jLabel12);
-        jLabel12.setBounds(90, 214, 460, 150);
+        jLabel12.setBounds(760, 510, 170, 200);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -798,8 +762,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
         activarjugador2=true;
          //activarjugador1=true;
         int opcion = cmbPersonajes.getSelectedIndex();
-        //Jugadores jugador1=new Jugadores();
-         
+        
+         String seleccionar=cmbPersonajes.getSelectedItem().toString();
         
         ImageIcon agua = new ImageIcon  (getClass().getResource("/Imagenes/agua2.gif"));
         ImageIcon fuego = new ImageIcon  (getClass().getResource("/Imagenes/fuego2.gif"));
@@ -817,39 +781,19 @@ public class SeleccionJugador extends javax.swing.JFrame {
             case 0:
                 lblPersonaje1.setIcon(icono1);
                 lblLuchador1.setIcon(icono1);
-                vida1 = 1200;
-                txtVida1.setText(Integer.toString(vida1)+"/1200");
-                estamina1 = 600;
-                txtEstamina1.setText(Integer.toString(estamina1)+"/600");
-                Jugadores personajeagua = new Jugadores (1200,600,100,210);
-  
+                
                 break;
             case 1:
                 lblPersonaje1.setIcon(icono2);
                 lblLuchador1.setIcon(icono2);
-                vida1 = 1300;
-                txtVida1.setText(Integer.toString(vida1)+"/1300");
-                estamina1 = 500;
-                txtEstamina1.setText(Integer.toString(estamina1)+"/500");
-               Jugadores personajefuego = new Jugadores (1300,500,110,230);
                 break;
             case 2:
                 lblPersonaje1.setIcon(icono3);
                 lblLuchador1.setIcon(icono3);
-                vida1 = 1400;
-                txtVida1.setText(Integer.toString(vida1)+"/1400");
-                estamina1 = 700;
-                txtEstamina1.setText(Integer.toString(estamina1)+"/700");
-                Jugadores personajetierra = new Jugadores (1400,700,95,156);
                 break;
             case 3:
                 lblPersonaje1.setIcon(icono4);
-                lblLuchador1.setIcon(icono4);
-                vida1 = 950;
-                txtVida1.setText(Integer.toString(vida1)+"/950");
-                estamina1 = 400;
-                txtEstamina1.setText(Integer.toString(estamina1)+"/400");
-                Jugadores personajeaire = new Jugadores (950,400,140,200);
+                 lblLuchador1.setIcon(icono4);
                 break;
             default:
                 
@@ -895,14 +839,13 @@ public class SeleccionJugador extends javax.swing.JFrame {
         for(Object jugadorObj: jugador){
             
             ClsJugador m=(ClsJugador)jugadorObj;
-            if(m.getCedula().equals(jugadorP.getCedula())){
+            if(m.getCedula().equals(jugadorP.getCedula())||m.getUsuario().equals(jugadorP.getUsuario())){
                 jugadorExiste=true;
                 
-                JOptionPane.showMessageDialog(rootPane, "Jugador con la misma cedula");
+                JOptionPane.showMessageDialog(rootPane, "Jugador con la misma cedula o mismo Usuario");
                 break;
             }
-            
-            
+                
             
         }
         
@@ -924,6 +867,7 @@ public class SeleccionJugador extends javax.swing.JFrame {
         else {
             JOptionPane.showMessageDialog(rootPane, "Llene todos los campos");
         }
+       
         
         
         
@@ -932,6 +876,7 @@ public class SeleccionJugador extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        
         ClsJugador jugadorSelect = (ClsJugador)cmbJugadores.getSelectedItem();
         DefaultTableModel model = (DefaultTableModel) tblRegistros.getModel();
         //System.out.println(cmbestudiantes.getSelectedIndex());
@@ -959,7 +904,6 @@ public class SeleccionJugador extends javax.swing.JFrame {
         String apellido=jugadorSeleccionado.getApellido();
         String cedula=jugadorSeleccionado.getCedula();
         String usuario=jugadorSeleccionado.getUsuario();
-
         Object jugadoresG [] = {id,nombre,apellido,cedula,usuario};
         DefaultTableModel model = (DefaultTableModel) tblRegistros.getModel();
         model.removeRow(cmbJugadores.getSelectedIndex());
@@ -967,9 +911,35 @@ public class SeleccionJugador extends javax.swing.JFrame {
         model.insertRow(cmbJugadores.getSelectedIndex(), jugadoresG);
         jugador.add(cmbJugadores.getSelectedIndex(), jugadorSeleccionado);
         controller.escribirObjeto("jugadores.dat", jugador);
-        llenarCombo();
-        limpiar();
-        btnModificar.setEnabled(false);
+             
+        
+               
+        ClsJugador jugadorM=new ClsJugador(cont, nombre, apellido,cedula, usuario,victorias);
+        boolean jugadorExiste2=true;
+        
+        for(Object jugadorObj: jugador){
+            
+            ClsJugador m=(ClsJugador)jugadorObj;
+            if(m.getCedula().equals(jugadorM.getCedula())||m.getUsuario().equals(jugadorM.getUsuario())){
+                jugadorExiste2=true;
+                                
+                JOptionPane.showMessageDialog(rootPane, "Jugador con la misma cedula o mismo Usuario");
+                                             
+               break;
+            }
+             else {
+            llenarCombo();
+            limpiar();           
+                        }
+               
+            
+               
+                     
+        }
+        
+        
+            
+         btnModificar.setEnabled(false);
         btnEliminar.setEnabled(false);
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -996,46 +966,27 @@ public class SeleccionJugador extends javax.swing.JFrame {
         ImageIcon icono3 = new ImageIcon (tierra.getImage().getScaledInstance(lblPersonaje2.getWidth(), lblPersonaje2.getHeight(), Image.SCALE_DEFAULT));
         ImageIcon icono4 = new ImageIcon (aire.getImage().getScaledInstance(lblPersonaje2.getWidth(), lblPersonaje2.getHeight(), Image.SCALE_DEFAULT));
         
+        
+       
+        
         switch(opcion){
             case 0:
                 lblPersonaje2.setIcon(icono1);
                 lblLuchador2.setIcon(icono1);
-                vida2 = 1200;
-                
-                estamina2 = 600;
-                txtEstamina2.setText(Integer.toString(estamina2)+"/600");
-                Jugadores personajeagua = new Jugadores (1200,600,100,210);
-                txtVida2.setText(Integer.toString(personajeagua.getVida())+"/1200");
                 break;
             case 1:
                 lblPersonaje2.setIcon(icono2);
                 lblLuchador2.setIcon(icono2);
-                vida2 = 1300;
-                txtVida2.setText(Integer.toString(vida2)+"/1300");
-                estamina2 = 500;
-                txtEstamina2.setText(Integer.toString(estamina2)+"/500");
-                Jugadores personajefuego = new Jugadores (1300,500,110,230);
                 break;
             case 2:
                 lblPersonaje2.setIcon(icono3);
-                lblLuchador2.setIcon(icono3);
-                vida2 = 1400;
-                txtVida2.setText(Integer.toString(vida2)+"/1400");
-                estamina2 = 700;
-                txtEstamina2.setText(Integer.toString(estamina2)+"/700");
-                Jugadores personajetierra = new Jugadores (1400,700,95,156);
+                 lblLuchador2.setIcon(icono3);
                 break;
             case 3:
                 lblPersonaje2.setIcon(icono4);
-                lblLuchador2.setIcon(icono4);
-                vida2 = 950;
-                txtVida2.setText(Integer.toString(vida2)+"/950");
-                estamina2 = 400;
-                txtEstamina2.setText(Integer.toString(estamina2)+"/400");
-                Jugadores personajeaire = new Jugadores (950,400,140,200);
+                 lblLuchador2.setIcon(icono4);
                 break;
             default:
-                
                 break;
         }
          if (activarjugador1 && activarjugador2){
@@ -1046,7 +997,7 @@ public class SeleccionJugador extends javax.swing.JFrame {
 
     private void cmbPersonajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPersonajesActionPerformed
         // TODO add your handling code here:
-        int opcion = cmbPersonajes.getSelectedIndex();
+       int opcion = cmbPersonajes.getSelectedIndex();
         ImageIcon agua = new ImageIcon  (getClass().getResource("/Imagenes/agua2.jpg"));
         ImageIcon fuego = new ImageIcon  (getClass().getResource("/Imagenes/fuego1.png"));
         ImageIcon tierra = new ImageIcon  (getClass().getResource("/Imagenes/tierra.png"));
@@ -1090,12 +1041,12 @@ public class SeleccionJugador extends javax.swing.JFrame {
            
         }
         else if( !cmbJugador1.equals(null)&&!cmbJugador2.equals(null)){
-            
-           PantallaBatalla.setVisible(true);
-           PantallaBatalla.setSize(800, 640);
-           PantallaBatalla.setLocationRelativeTo(null);
+           PantallaCargar.setVisible(true);
+           PantallaCargar.setSize(500,330);
+           PantallaCargar.setLocationRelativeTo(null);
             
         }
+       
        
         
         
@@ -1112,22 +1063,32 @@ public class SeleccionJugador extends javax.swing.JFrame {
         // TODO add your handling code here:
         //////////VIDAS//
 
+        int vidaFuego=1300;
+        
+        vida1+=curar1;
+        
                                   
         //Integer.parseInt(lblVida1);
 
     }//GEN-LAST:event_btnCurar1ActionPerformed
 
     private void btnAtaque1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtaque1ActionPerformed
-        
-        Agua personaje1 = new Agua (1200,600,100,210);
-        if(lblLuchador1.equals(personaje1)){
-            
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnAtaque1ActionPerformed
 
-    private void btnAtaque2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtaque2ActionPerformed
+    private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAtaque2ActionPerformed
+        PantallaCargar.setVisible(false);
+         PantallaBatalla.setVisible(true);
+           PantallaBatalla.setSize(800, 800);
+           PantallaBatalla.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnJugarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        PantallaBatalla.setVisible(false);
+        
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1169,6 +1130,7 @@ public class SeleccionJugador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame PantallaBatalla;
+    private javax.swing.JFrame PantallaCargar;
     private javax.swing.JFrame RegistroJugador;
     private javax.swing.JButton bntSelectJugador2;
     private javax.swing.JButton btnAtaque1;
@@ -1182,8 +1144,10 @@ public class SeleccionJugador extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEmpezar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnJugar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrarJugador;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSeleccionPersonaje;
     private javax.swing.JButton btnSelectJugador1;
     public static javax.swing.JComboBox<String> cmbJugador1;
@@ -1191,8 +1155,11 @@ public class SeleccionJugador extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbJugadores;
     private javax.swing.JComboBox<String> cmbPersonajes;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
