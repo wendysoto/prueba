@@ -5,7 +5,6 @@ package proyecto;
 import com.sun.javafx.font.Glyph;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -22,8 +21,9 @@ public class SeleccionJugador extends javax.swing.JFrame {
     /**
      * Creates new form RegistroJugador
      */
+    ArrayList<Personajes> ListaPersonajes = new ArrayList<Personajes>();
     
-     ArrayList<Object> jugador=new ArrayList<>();
+    ArrayList<Object> jugador=new ArrayList<>();
     int cont=0;
     int victorias=0;
     
@@ -32,11 +32,17 @@ public class SeleccionJugador extends javax.swing.JFrame {
 
     DefaultComboBoxModel listaJugadoresModel = 
             new DefaultComboBoxModel(jugador.toArray());
-  
+    
+   String[] personajes = new String[]{"Neptuno","Fire","Lodo","Avatar"};
+    DefaultComboBoxModel combopersonajes= new DefaultComboBoxModel(personajes);
+    ///////////
     
     boolean activarjugador1=false;
     boolean activarjugador2=false;
     
+     ////////////////////pantalla Batalla//////////////
+         ArrayList ListaJugadas = new ArrayList ();
+    boolean repetircancion = true; 
     
     int vida1;
     int estamina1;
@@ -50,20 +56,32 @@ public class SeleccionJugador extends javax.swing.JFrame {
     int ataquefinal2;
     int defensa2;
     int curacion2;
-    int i,j;
+    int perso1,perso2;
     boolean defensaactiva = false;
+    
+    
        
+        Personajes personajeagua = new Personajes (1200,600,100,210);
+        Personajes personajefuego = new Personajes (1300,500,110,230);
+        Personajes personajetierra = new Personajes (1400,700,95,156);
+        Personajes personajeaire = new Personajes (950,400,140,200);
     
     public SeleccionJugador() {
         initComponents();
         
+        
+        cmbPersonajes.setModel(combopersonajes);
         
         jugador=controller.extraerObjetos("jugadores.dat");
      
         llenarCombo();
         llenarTabla();
      
-     
+        ListaPersonajes.add(personajeagua);
+        ListaPersonajes.add(personajefuego);
+        ListaPersonajes.add(personajetierra);
+        ListaPersonajes.add(personajeaire);
+        
      if(jugador.size() > 0){
             ClsJugador ultimo = (ClsJugador) jugador.get(jugador.size()-1);
             cont=ultimo.getId();
@@ -78,7 +96,7 @@ public class SeleccionJugador extends javax.swing.JFrame {
         txtVida2.setEnabled(false);
         txtEstamina1.setEnabled(false);
         txtEstamina2.setEnabled(false);      
-        btnAtaque1.setEnabled(false);
+        btnAtaque1.setEnabled(true);
         btnAtaqueFinal1.setEnabled(false);
         btnDefenza1.setEnabled(false);
         btnCurar1.setEnabled(false);
@@ -86,11 +104,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
          btnEmpezar.setEnabled(false);
                   
        
-        
-       
-      
     }
-    
+
     public void llenarCombo(){
        if(jugador.size() > 0){
             cmbJugadores.setEnabled(true);
@@ -178,7 +193,6 @@ public class SeleccionJugador extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtVida2 = new javax.swing.JTextField();
         txtEstamina2 = new javax.swing.JTextField();
-        btnRegresar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         btnAtaque1 = new javax.swing.JButton();
         btnDefenza1 = new javax.swing.JButton();
@@ -190,12 +204,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
         btnCurar2 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         lblLuchador1 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         lblLuchador2 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        PantallaCargar = new javax.swing.JFrame();
-        btnJugar = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         lblTituloPersonajes = new javax.swing.JLabel();
         cmbJugador1 = new javax.swing.JComboBox<>();
@@ -210,10 +220,10 @@ public class SeleccionJugador extends javax.swing.JFrame {
         lblPersonaje2 = new javax.swing.JLabel();
         lblFondo2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        lblPerso1 = new javax.swing.JLabel();
+        lblPerso2 = new javax.swing.JLabel();
 
-        RegistroJugador.setPreferredSize(new java.awt.Dimension(890, 670));
         RegistroJugador.getContentPane().setLayout(null);
 
         cmbJugadores.setBackground(new java.awt.Color(102, 255, 255));
@@ -333,8 +343,6 @@ public class SeleccionJugador extends javax.swing.JFrame {
         RegistroJugador.getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(60, 270, 511, 120);
 
-        btnSeleccionPersonaje.setBackground(new java.awt.Color(51, 255, 255));
-        btnSeleccionPersonaje.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
         btnSeleccionPersonaje.setText("Ir a la Selección de Personaje");
         btnSeleccionPersonaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,7 +350,7 @@ public class SeleccionJugador extends javax.swing.JFrame {
             }
         });
         RegistroJugador.getContentPane().add(btnSeleccionPersonaje);
-        btnSeleccionPersonaje.setBounds(176, 410, 260, 46);
+        btnSeleccionPersonaje.setBounds(230, 410, 206, 46);
 
         lblFondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registro.jpg"))); // NOI18N
         lblFondo1.setMaximumSize(new java.awt.Dimension(5000, 5000));
@@ -355,11 +363,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
         panelFondo.setBackground(new java.awt.Color(153, 255, 153));
         panelFondo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelFondo.setMaximumSize(new java.awt.Dimension(100, 100));
-        panelFondo.setMinimumSize(new java.awt.Dimension(795, 627));
         panelFondo.setPreferredSize(new java.awt.Dimension(600, 600));
-        panelFondo.setLayout(null);
 
-        jPanel4.setBackground(new java.awt.Color(255, 204, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblNombreJugador1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -409,10 +414,6 @@ public class SeleccionJugador extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelFondo.add(jPanel4);
-        jPanel4.setBounds(12, 25, 252, 149);
-
-        jPanel5.setBackground(new java.awt.Color(102, 153, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblNombreJugador2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -427,29 +428,28 @@ public class SeleccionJugador extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(23, 23, 23)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblNombreJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel8))
                         .addGap(24, 24, 24)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtVida2, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                            .addComponent(txtEstamina2)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblNombreJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtVida2)
+                            .addComponent(txtEstamina2))))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblNombreJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(lblNombreJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel3))
                     .addComponent(txtVida2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -458,21 +458,6 @@ public class SeleccionJugador extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        panelFondo.add(jPanel5);
-        jPanel5.setBounds(510, 220, 236, 134);
-
-        btnRegresar.setBackground(new java.awt.Color(255, 153, 204));
-        btnRegresar.setFont(new java.awt.Font("Monotype Corsiva", 2, 14)); // NOI18N
-        btnRegresar.setText("REGRESAR");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-        panelFondo.add(btnRegresar);
-        btnRegresar.setBounds(280, 610, 160, 50);
-
-        jPanel6.setBackground(new java.awt.Color(0, 0, 0));
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnAtaque1.setText("Ataque");
@@ -485,6 +470,11 @@ public class SeleccionJugador extends javax.swing.JFrame {
         btnDefenza1.setText("Defenza");
 
         btnAtaqueFinal1.setText("Ataque Final");
+        btnAtaqueFinal1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtaqueFinal1ActionPerformed(evt);
+            }
+        });
 
         btnCurar1.setText("Curar");
         btnCurar1.addActionListener(new java.awt.event.ActionListener() {
@@ -494,27 +484,36 @@ public class SeleccionJugador extends javax.swing.JFrame {
         });
 
         btnAtaque2.setText("Ataque");
+        btnAtaque2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtaque2ActionPerformed(evt);
+            }
+        });
 
         btnAtaqueFinal2.setText("Ataque Final");
+        btnAtaqueFinal2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtaqueFinal2ActionPerformed(evt);
+            }
+        });
 
         btnDefenza2.setText("Defenza");
 
         btnCurar2.setText("Curar");
 
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("jLabel9");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8))
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(82, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAtaque1)
                             .addComponent(btnDefenza1))
@@ -529,8 +528,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnAtaqueFinal2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCurar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(68, 68, 68))
+                            .addComponent(btnCurar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(68, 68, 68))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -547,25 +546,66 @@ public class SeleccionJugador extends javax.swing.JFrame {
                     .addComponent(btnCurar1)
                     .addComponent(btnDefenza2)
                     .addComponent(btnCurar2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        panelFondo.add(jPanel6);
-        jPanel6.setBounds(20, 400, 710, 200);
-        panelFondo.add(lblLuchador1);
-        lblLuchador1.setBounds(80, 200, 228, 170);
-        panelFondo.add(lblLuchador2);
-        lblLuchador2.setBounds(522, 25, 240, 157);
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/vs.jpg"))); // NOI18N
+        jLabel11.setMinimumSize(new java.awt.Dimension(468, 468));
+        jLabel11.setName(""); // NOI18N
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/base.gif"))); // NOI18N
-        panelFondo.add(jLabel13);
-        jLabel13.setBounds(0, 430, 790, 320);
+        javax.swing.GroupLayout panelFondoLayout = new javax.swing.GroupLayout(panelFondo);
+        panelFondo.setLayout(panelFondoLayout);
+        panelFondoLayout.setHorizontalGroup(
+            panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFondoLayout.createSequentialGroup()
+                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelFondoLayout.createSequentialGroup()
+                        .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelFondoLayout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(lblLuchador1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelFondoLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelFondoLayout.createSequentialGroup()
+                                .addGap(225, 225, 225)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFondoLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblLuchador2, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panelFondoLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(333, 333, 333)
+                .addComponent(jLabel11, 0, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelFondoLayout.setVerticalGroup(
+            panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFondoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(442, 442, 442))
+            .addGroup(panelFondoLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(panelFondoLayout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblLuchador1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelFondoLayout.createSequentialGroup()
+                        .addComponent(lblLuchador2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(54, 54, 54)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/2.gif"))); // NOI18N
-        panelFondo.add(jLabel15);
-        jLabel15.setBounds(0, -210, 750, 890);
+        jLabel11.getAccessibleContext().setAccessibleParent(jPanel6);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -573,15 +613,15 @@ public class SeleccionJugador extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 798, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(140, 140, 140))
         );
 
         panelFondo.getAccessibleContext().setAccessibleParent(panelFondo);
@@ -593,75 +633,48 @@ public class SeleccionJugador extends javax.swing.JFrame {
             .addGroup(PantallaBatallaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         PantallaBatallaLayout.setVerticalGroup(
             PantallaBatallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PantallaBatallaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        PantallaCargar.getContentPane().setLayout(null);
-
-        btnJugar.setBackground(new java.awt.Color(255, 51, 102));
-        btnJugar.setFont(new java.awt.Font("Lucida Calligraphy", 3, 18)); // NOI18N
-        btnJugar.setText("JUGAR");
-        btnJugar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnJugarActionPerformed(evt);
-            }
-        });
-        PantallaCargar.getContentPane().add(btnJugar);
-        btnJugar.setBounds(190, 250, 160, 30);
-
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cargando.gif"))); // NOI18N
-        PantallaCargar.getContentPane().add(jLabel16);
-        jLabel16.setBounds(0, 0, 500, 300);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1078, 750));
+        setMinimumSize(new java.awt.Dimension(800, 500));
         getContentPane().setLayout(null);
 
-        lblTitulo.setBackground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setFont(new java.awt.Font("Elephant", 2, 48)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(255, 0, 0));
-        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Battle pro");
-        lblTitulo.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), null));
+        lblTitulo.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(204, 0, 0));
+        lblTitulo.setText("battle pro");
         getContentPane().add(lblTitulo);
-        lblTitulo.setBounds(260, 30, 300, 44);
+        lblTitulo.setBounds(330, 30, 161, 44);
 
-        lblTituloPersonajes.setBackground(new java.awt.Color(255, 255, 51));
         lblTituloPersonajes.setFont(new java.awt.Font("Franklin Gothic Heavy", 0, 18)); // NOI18N
         lblTituloPersonajes.setForeground(new java.awt.Color(204, 0, 0));
         lblTituloPersonajes.setText("PERSONAJES");
         getContentPane().add(lblTituloPersonajes);
-        lblTituloPersonajes.setBounds(330, 120, 140, 21);
+        lblTituloPersonajes.setBounds(325, 110, 110, 21);
 
-        cmbJugador1.setFont(new java.awt.Font("Lucida Handwriting", 0, 12)); // NOI18N
-        cmbJugador1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         cmbJugador1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbJugador1ActionPerformed(evt);
             }
         });
         getContentPane().add(cmbJugador1);
-        cmbJugador1.setBounds(42, 77, 150, 30);
+        cmbJugador1.setBounds(42, 77, 120, 30);
 
-        cmbJugador2.setBackground(new java.awt.Color(204, 255, 255));
-        cmbJugador2.setFont(new java.awt.Font("Lucida Handwriting", 0, 12)); // NOI18N
         cmbJugador2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbJugador2ActionPerformed(evt);
             }
         });
         getContentPane().add(cmbJugador2);
-        cmbJugador2.setBounds(590, 90, 160, 30);
+        cmbJugador2.setBounds(561, 77, 135, 30);
 
-        btnRegistrarJugador.setBackground(new java.awt.Color(0, 255, 153));
-        btnRegistrarJugador.setFont(new java.awt.Font("Segoe Script", 2, 18)); // NOI18N
         btnRegistrarJugador.setText("REGISTRAR JUGADOR");
         btnRegistrarJugador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -669,23 +682,19 @@ public class SeleccionJugador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnRegistrarJugador);
-        btnRegistrarJugador.setBounds(300, 430, 280, 40);
+        btnRegistrarJugador.setBounds(300, 430, 170, 30);
 
-        cmbPersonajes.setBackground(new java.awt.Color(0, 255, 51));
-        cmbPersonajes.setFont(new java.awt.Font("Lucida Handwriting", 3, 12)); // NOI18N
-        cmbPersonajes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fuego", "Tierra", "Aire", "Agua" }));
+        cmbPersonajes.setFont(new java.awt.Font("Felix Titling", 0, 12)); // NOI18N
         cmbPersonajes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbPersonajesActionPerformed(evt);
             }
         });
         getContentPane().add(cmbPersonajes);
-        cmbPersonajes.setBounds(310, 150, 200, 40);
+        cmbPersonajes.setBounds(305, 140, 150, 30);
         getContentPane().add(lblPersonaje1);
-        lblPersonaje1.setBounds(50, 130, 130, 130);
+        lblPersonaje1.setBounds(40, 130, 130, 130);
 
-        btnEmpezar.setBackground(new java.awt.Color(255, 255, 51));
-        btnEmpezar.setFont(new java.awt.Font("Viner Hand ITC", 0, 24)); // NOI18N
         btnEmpezar.setText("Empezar");
         btnEmpezar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -693,12 +702,10 @@ public class SeleccionJugador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnEmpezar);
-        btnEmpezar.setBounds(360, 380, 140, 30);
+        btnEmpezar.setBounds(340, 380, 90, 30);
         getContentPane().add(lblPersonaje3);
-        lblPersonaje3.setBounds(330, 240, 146, 124);
+        lblPersonaje3.setBounds(305, 178, 146, 124);
 
-        btnSelectJugador1.setBackground(new java.awt.Color(51, 102, 255));
-        btnSelectJugador1.setFont(new java.awt.Font("Segoe Script", 1, 14)); // NOI18N
         btnSelectJugador1.setText("Seleccionar Jugador 1 ");
         btnSelectJugador1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -706,10 +713,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSelectJugador1);
-        btnSelectJugador1.setBounds(30, 291, 210, 60);
+        btnSelectJugador1.setBounds(30, 291, 180, 30);
 
-        bntSelectJugador2.setBackground(new java.awt.Color(102, 102, 255));
-        bntSelectJugador2.setFont(new java.awt.Font("Segoe Script", 1, 14)); // NOI18N
         bntSelectJugador2.setText("Seleccionar Jugador 2");
         bntSelectJugador2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -717,21 +722,21 @@ public class SeleccionJugador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(bntSelectJugador2);
-        bntSelectJugador2.setBounds(580, 290, 210, 60);
+        bntSelectJugador2.setBounds(547, 290, 180, 30);
         getContentPane().add(lblPersonaje2);
         lblPersonaje2.setBounds(570, 140, 120, 130);
 
-        lblFondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoP.jpg"))); // NOI18N
-        lblFondo2.setMaximumSize(new java.awt.Dimension(700, 600));
-        lblFondo2.setMinimumSize(new java.awt.Dimension(700, 600));
+        lblFondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondomain.jpg"))); // NOI18N
+        lblFondo2.setMaximumSize(new java.awt.Dimension(800, 600));
+        lblFondo2.setMinimumSize(new java.awt.Dimension(800, 600));
         getContentPane().add(lblFondo2);
-        lblFondo2.setBounds(0, -70, 970, 650);
+        lblFondo2.setBounds(0, -70, 810, 660);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 810, Short.MAX_VALUE)
+            .addGap(0, 750, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -739,15 +744,16 @@ public class SeleccionJugador extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(30, 20, 810, 470);
+        jPanel1.setBounds(30, 20, 750, 470);
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/empezar.gif"))); // NOI18N
-        getContentPane().add(jLabel10);
-        jLabel10.setBounds(0, 510, 770, 200);
-
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/empezar.gif"))); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/clic.gif"))); // NOI18N
+        jLabel12.setText("jLabel12");
         getContentPane().add(jLabel12);
-        jLabel12.setBounds(760, 510, 170, 200);
+        jLabel12.setBounds(90, 214, 460, 150);
+        getContentPane().add(lblPerso1);
+        lblPerso1.setBounds(90, 270, 0, 0);
+        getContentPane().add(lblPerso2);
+        lblPerso2.setBounds(610, 270, 0, 0);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -762,9 +768,7 @@ public class SeleccionJugador extends javax.swing.JFrame {
         activarjugador2=true;
          //activarjugador1=true;
         int opcion = cmbPersonajes.getSelectedIndex();
-        
-         String seleccionar=cmbPersonajes.getSelectedItem().toString();
-        
+
         ImageIcon agua = new ImageIcon  (getClass().getResource("/Imagenes/agua2.gif"));
         ImageIcon fuego = new ImageIcon  (getClass().getResource("/Imagenes/fuego2.gif"));
         ImageIcon tierra = new ImageIcon  (getClass().getResource("/Imagenes/tierra2.gif"));
@@ -781,19 +785,38 @@ public class SeleccionJugador extends javax.swing.JFrame {
             case 0:
                 lblPersonaje1.setIcon(icono1);
                 lblLuchador1.setIcon(icono1);
-                
+                vida1 = personajeagua.getVida();
+                txtVida1.setText(Integer.toString(vida1)+"/1200");
+                estamina1 = personajeagua.getEstamina();
+                txtEstamina1.setText(Integer.toString(estamina1)+"/600");
+                lblPerso1.setText("0");
                 break;
             case 1:
                 lblPersonaje1.setIcon(icono2);
                 lblLuchador1.setIcon(icono2);
+                vida1 = personajefuego.getVida();;
+                txtVida1.setText(Integer.toString(vida1)+"/1300");
+                estamina1 = personajefuego.getEstamina();;
+                txtEstamina1.setText(Integer.toString(estamina1)+"/500");
+                lblPerso1.setText("1");
                 break;
             case 2:
                 lblPersonaje1.setIcon(icono3);
                 lblLuchador1.setIcon(icono3);
+                vida1 = personajetierra.getVida();
+                txtVida1.setText(Integer.toString(vida1)+"/1400");
+                estamina1 = personajetierra.getEstamina();
+                txtEstamina1.setText(Integer.toString(estamina1)+"/700");
+                lblPerso1.setText("2");
                 break;
             case 3:
                 lblPersonaje1.setIcon(icono4);
-                 lblLuchador1.setIcon(icono4);
+                lblLuchador1.setIcon(icono4);
+                vida1 = personajeaire.getVida();
+                txtVida1.setText(Integer.toString(vida1)+"/950");
+                estamina1 = personajeaire.getEstamina();
+                txtEstamina1.setText(Integer.toString(estamina1)+"/400");
+                lblPerso1.setText("3");
                 break;
             default:
                 
@@ -803,6 +826,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
          if (activarjugador1 && activarjugador2){
             btnEmpezar.setEnabled(true);             
          }
+         
+        
     }//GEN-LAST:event_btnSelectJugador1ActionPerformed
 
     private void cmbJugador1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJugador1ActionPerformed
@@ -830,8 +855,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nombre=txtNombre.getText();
         String apellido=txtApellido.getText();
-        String usuario=txtUsuario.getText();
         String cedula=txtCedula.getText();
+        String usuario=txtUsuario.getText();
         cont++;
         boolean jugadorExiste=false;
         
@@ -839,15 +864,15 @@ public class SeleccionJugador extends javax.swing.JFrame {
         for(Object jugadorObj: jugador){
             
             ClsJugador m=(ClsJugador)jugadorObj;
-            if(m.getCedula().equals(jugadorP.getCedula())||m.getUsuario().equals(jugadorP.getUsuario())){
+            if(m.getCedula().equals(jugadorP.getCedula()) || m.getUsuario().equals(jugadorP.getUsuario())){
                 jugadorExiste=true;
                 
-                JOptionPane.showMessageDialog(rootPane, "Jugador con la misma cedula o mismo Usuario");
+                JOptionPane.showMessageDialog(rootPane, "Jugador con la misma cedula o usuario");
                 break;
             }
-                
-            
+         
         }
+       
         
         if( !jugadorExiste &&!nombre.equals("") && !apellido.equals("") && !usuario.equals("")&&!cedula.equals("") ){
 
@@ -867,7 +892,6 @@ public class SeleccionJugador extends javax.swing.JFrame {
         else {
             JOptionPane.showMessageDialog(rootPane, "Llene todos los campos");
         }
-       
         
         
         
@@ -876,7 +900,6 @@ public class SeleccionJugador extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        
         ClsJugador jugadorSelect = (ClsJugador)cmbJugadores.getSelectedItem();
         DefaultTableModel model = (DefaultTableModel) tblRegistros.getModel();
         //System.out.println(cmbestudiantes.getSelectedIndex());
@@ -888,6 +911,7 @@ public class SeleccionJugador extends javax.swing.JFrame {
         limpiar();
         btnModificar.setEnabled(false);
         btnEliminar.setEnabled(false);
+        cont--;
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -904,43 +928,32 @@ public class SeleccionJugador extends javax.swing.JFrame {
         String apellido=jugadorSeleccionado.getApellido();
         String cedula=jugadorSeleccionado.getCedula();
         String usuario=jugadorSeleccionado.getUsuario();
-        Object jugadoresG [] = {id,nombre,apellido,cedula,usuario};
+        
+        boolean jugadorExiste=false;
+        ClsJugador jugadorP=new ClsJugador(cont, nombre, apellido,cedula, usuario,victorias);
+        for(Object jugadorObj: jugador){
+            
+            ClsJugador m=(ClsJugador)jugadorObj;
+            if(m.getCedula().equals(jugadorP.getCedula()) || m.getUsuario().equals(jugadorP.getUsuario())){
+                jugadorExiste=true;
+                
+                JOptionPane.showMessageDialog(rootPane, "Jugador con la misma cedula o usuario");
+                break;
+            }else{
+         Object jugadoresG [] = {id,nombre,apellido,cedula,usuario};
         DefaultTableModel model = (DefaultTableModel) tblRegistros.getModel();
         model.removeRow(cmbJugadores.getSelectedIndex());
         jugador.remove(cmbJugadores.getSelectedIndex());
         model.insertRow(cmbJugadores.getSelectedIndex(), jugadoresG);
         jugador.add(cmbJugadores.getSelectedIndex(), jugadorSeleccionado);
         controller.escribirObjeto("jugadores.dat", jugador);
-             
-        
-               
-        ClsJugador jugadorM=new ClsJugador(cont, nombre, apellido,cedula, usuario,victorias);
-        boolean jugadorExiste2=true;
-        
-        for(Object jugadorObj: jugador){
-            
-            ClsJugador m=(ClsJugador)jugadorObj;
-            if(m.getCedula().equals(jugadorM.getCedula())||m.getUsuario().equals(jugadorM.getUsuario())){
-                jugadorExiste2=true;
-                                
-                JOptionPane.showMessageDialog(rootPane, "Jugador con la misma cedula o mismo Usuario");
-                                             
-               break;
-            }
-             else {
-            llenarCombo();
-            limpiar();           
-                        }
-               
-            
-               
-                     
-        }
-        
-        
-            
-         btnModificar.setEnabled(false);
+        llenarCombo();
+        limpiar();
+        btnModificar.setEnabled(false);
         btnEliminar.setEnabled(false);
+            }
+
+        } 
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnSeleccionPersonajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionPersonajeActionPerformed
@@ -953,8 +966,12 @@ public class SeleccionJugador extends javax.swing.JFrame {
     private void bntSelectJugador2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSelectJugador2ActionPerformed
         int opcion = cmbPersonajes.getSelectedIndex();
         activarjugador1=true;
-        
-        
+        ClsJugador jugadorSeleccionado = (ClsJugador)cmbJugadores.getSelectedItem();
+        String nombre = jugadorSeleccionado.getNombre();
+        String apellido = jugadorSeleccionado.getApellido();
+        String usuario = jugadorSeleccionado.getUsuario();
+        ClsJugador jugador2a = new ClsJugador (nombre,apellido,usuario,victorias);
+         
         ImageIcon agua = new ImageIcon  (getClass().getResource("/Imagenes/agua2.gif"));
         ImageIcon fuego = new ImageIcon  (getClass().getResource("/Imagenes/fuego2.gif"));
         ImageIcon tierra = new ImageIcon  (getClass().getResource("/Imagenes/tierra2.gif"));
@@ -966,27 +983,47 @@ public class SeleccionJugador extends javax.swing.JFrame {
         ImageIcon icono3 = new ImageIcon (tierra.getImage().getScaledInstance(lblPersonaje2.getWidth(), lblPersonaje2.getHeight(), Image.SCALE_DEFAULT));
         ImageIcon icono4 = new ImageIcon (aire.getImage().getScaledInstance(lblPersonaje2.getWidth(), lblPersonaje2.getHeight(), Image.SCALE_DEFAULT));
         
-        
-       
-        
         switch(opcion){
             case 0:
                 lblPersonaje2.setIcon(icono1);
                 lblLuchador2.setIcon(icono1);
+                vida2 = personajeagua.getVida();
+                estamina2 = personajeagua.getVida();
+                txtEstamina2.setText(Integer.toString(estamina2)+"/600");
+                txtVida2.setText(Integer.toString(vida2)+"/1200");
+                lblPerso2.setText("0");
                 break;
             case 1:
+                
                 lblPersonaje2.setIcon(icono2);
                 lblLuchador2.setIcon(icono2);
+                vida2 = personajefuego.getVida();
+                txtVida2.setText(Integer.toString(vida2)+"/1300");
+                estamina2 = personajefuego.getEstamina();
+                txtEstamina2.setText(Integer.toString(estamina2)+"/500");
+                lblPerso2.setText("1");
                 break;
             case 2:
                 lblPersonaje2.setIcon(icono3);
-                 lblLuchador2.setIcon(icono3);
+                lblLuchador2.setIcon(icono3);
+                vida2 = personajetierra.getVida();
+                txtVida2.setText(Integer.toString(vida2)+"/1400");
+                estamina2 = personajetierra.getEstamina();
+                txtEstamina2.setText(Integer.toString(estamina2)+"/700");
+                lblPerso2.setText("2");
                 break;
             case 3:
                 lblPersonaje2.setIcon(icono4);
-                 lblLuchador2.setIcon(icono4);
+                lblLuchador2.setIcon(icono4);
+                vida2 = personajeaire.getVida();
+                txtVida2.setText(Integer.toString(vida2)+"/950");
+                estamina2 = personajeaire.getEstamina();
+                txtEstamina2.setText(Integer.toString(estamina2)+"/400");
+                lblPerso2.setText("3");
+
                 break;
             default:
+                
                 break;
         }
          if (activarjugador1 && activarjugador2){
@@ -997,7 +1034,7 @@ public class SeleccionJugador extends javax.swing.JFrame {
 
     private void cmbPersonajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPersonajesActionPerformed
         // TODO add your handling code here:
-       int opcion = cmbPersonajes.getSelectedIndex();
+        int opcion = cmbPersonajes.getSelectedIndex();
         ImageIcon agua = new ImageIcon  (getClass().getResource("/Imagenes/agua2.jpg"));
         ImageIcon fuego = new ImageIcon  (getClass().getResource("/Imagenes/fuego1.png"));
         ImageIcon tierra = new ImageIcon  (getClass().getResource("/Imagenes/tierra.png"));
@@ -1032,24 +1069,27 @@ public class SeleccionJugador extends javax.swing.JFrame {
     private void btnEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpezarActionPerformed
         // TODO add your handling code here:
         String SelectJugador1=cmbJugador1.getSelectedItem().toString();
-        
-         String SelectJugador2=cmbJugador2.getSelectedItem().toString();       
-           
+        String SelectJugador2=cmbJugador2.getSelectedItem().toString();   
+        Jugadas jugador1 = new Jugadas ((ClsJugador) jugador.get(perso1),ListaPersonajes.get(perso1));
               
         if(SelectJugador1.equals(SelectJugador2)){
-           JOptionPane.showMessageDialog(rootPane, "Los jugadores son los mismo");
+           JOptionPane.showMessageDialog(rootPane, "Los jugadores son los mismos");
            
         }
         else if( !cmbJugador1.equals(null)&&!cmbJugador2.equals(null)){
-           PantallaCargar.setVisible(true);
-           PantallaCargar.setSize(500,330);
-           PantallaCargar.setLocationRelativeTo(null);
-            
+           
+           PantallaBatalla.setVisible(true);
+           PantallaBatalla.setSize(800, 640);
+           PantallaBatalla.setLocationRelativeTo(null);
         }
        
-       
-        
-        
+        int i1=Integer.parseInt(lblPerso1.getText());
+        int i2=Integer.parseInt(lblPerso2.getText());
+        vida1 = ListaPersonajes.get(i1).getVida();
+        vida2 = ListaPersonajes.get(i2).getVida();
+        int j1 =Integer.parseInt(lblPerso2.getText());
+        estamina1 = ListaPersonajes.get(i1).getEstamina();
+        estamina2 = ListaPersonajes.get(i2).getEstamina();
     }//GEN-LAST:event_btnEmpezarActionPerformed
 
     private void cmbJugador2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJugador2ActionPerformed
@@ -1063,36 +1103,159 @@ public class SeleccionJugador extends javax.swing.JFrame {
         // TODO add your handling code here:
         //////////VIDAS//
 
-        int vidaFuego=1300;
-        
-        vida1+=curar1;
-        
                                   
         //Integer.parseInt(lblVida1);
 
     }//GEN-LAST:event_btnCurar1ActionPerformed
 
     private void btnAtaque1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtaque1ActionPerformed
-        // TODO add your handling code here:
+ 
+        if(lblPerso1.getText().equals("0")){
+            vida2-=personajeagua.getAtaque();
+            txtVida2.setText(Integer.toString(vida2)+"/1400");
+            estamina1-=personajeagua.getAtaque();
+            txtEstamina1.setText(Integer.toString(estamina1)+"/600");
+        }else if(lblPerso1.getText().equals("1")){
+            vida2-=personajefuego.getAtaque();
+            txtVida2.setText(Integer.toString(vida2)+"/1300");
+            estamina1-=personajefuego.getAtaque();
+            txtEstamina1.setText(Integer.toString(estamina1)+"/500");
+        }else if(lblPerso1.getText().equals("2")){
+            vida2-=personajetierra.getAtaque();
+            txtVida2.setText(Integer.toString(vida2)+"/1200");
+            estamina1-=personajetierra.getAtaque();
+            txtEstamina1.setText(Integer.toString(estamina1)+"/700");
+        }else if(lblPerso1.getText().equals("3")){
+            vida2-=personajeaire.getAtaque();
+            txtVida2.setText(Integer.toString(vida2)+"/950");
+            estamina1-=personajeaire.getAtaque();
+            txtEstamina1.setText(Integer.toString(estamina1)+"/400");
+        }
+        
+        turnoJ2();
+     
     }//GEN-LAST:event_btnAtaque1ActionPerformed
 
-    private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
-        // TODO add your handling code here:
-        PantallaCargar.setVisible(false);
-         PantallaBatalla.setVisible(true);
-           PantallaBatalla.setSize(800, 800);
-           PantallaBatalla.setLocationRelativeTo(null);
-    }//GEN-LAST:event_btnJugarActionPerformed
-
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
-        PantallaBatalla.setVisible(false);
+    private void btnAtaque2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtaque2ActionPerformed
         
-    }//GEN-LAST:event_btnRegresarActionPerformed
+        if(lblPerso2.getText().equals("0")){
+            vida1-=personajeagua.getAtaque();
+            txtVida1.setText(Integer.toString(vida1)+"/1400");
+            estamina2-=personajeagua.getAtaque();
+            txtEstamina2.setText(Integer.toString(estamina2)+"/600");
+        }else if(lblPerso2.getText().equals("1")){
+            vida1-=personajefuego.getAtaque();
+            txtVida1.setText(Integer.toString(vida1)+"/1300");
+            estamina2-=personajefuego.getAtaque();
+            txtEstamina2.setText(Integer.toString(estamina2)+"/500");
+        }else if(lblPerso2.getText().equals("2")){
+            vida1-=personajetierra.getAtaque();
+            txtVida1.setText(Integer.toString(vida1)+"/1200");
+            estamina2-=personajetierra.getAtaque();
+            txtEstamina2.setText(Integer.toString(estamina2)+"/700");
+        }else if(lblPerso2.getText().equals("3")){
+            vida1-=personajeaire.getAtaque();
+            txtVida1.setText(Integer.toString(vida1)+"/950");
+            estamina2-=personajeaire.getAtaque();
+            txtEstamina2.setText(Integer.toString(estamina2)+"/400");
+        }
+        
+        turnoJ1();
+    }//GEN-LAST:event_btnAtaque2ActionPerformed
+
+    private void btnAtaqueFinal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtaqueFinal1ActionPerformed
+        if(lblPerso1.getText().equals("0")){
+            vida2-=personajeagua.getAtaqueFinal();
+            txtVida2.setText(Integer.toString(vida2)+"/1400");
+            estamina1-=personajeagua.getAtaqueFinal();
+            txtEstamina1.setText(Integer.toString(estamina1)+"/600");
+        }else if(lblPerso1.getText().equals("1")){
+            vida2-=personajefuego.getAtaqueFinal();
+            txtVida2.setText(Integer.toString(vida2)+"/1300");
+            estamina1-=personajefuego.getAtaqueFinal();
+            txtEstamina1.setText(Integer.toString(estamina1)+"/500");
+        }else if(lblPerso1.getText().equals("2")){
+            vida2-=personajetierra.getAtaqueFinal();
+            txtVida2.setText(Integer.toString(vida2)+"/1200");
+            estamina1-=personajetierra.getAtaqueFinal();
+            txtEstamina1.setText(Integer.toString(estamina1)+"/700");
+        }else if(lblPerso1.getText().equals("3")){
+            vida2-=personajeaire.getAtaqueFinal();
+            txtVida2.setText(Integer.toString(vida2)+"/950");
+            estamina1-=personajeaire.getAtaqueFinal();
+            txtEstamina1.setText(Integer.toString(estamina1)+"/400");
+        }
+        
+        turnoJ2();
+    }//GEN-LAST:event_btnAtaqueFinal1ActionPerformed
+
+    private void btnAtaqueFinal2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtaqueFinal2ActionPerformed
+        if(lblPerso2.getText().equals("0")){
+            vida1-=personajeagua.getAtaqueFinal();
+            txtVida1.setText(Integer.toString(vida1)+"/1400");
+            estamina2-=personajeagua.getAtaqueFinal();
+            txtEstamina2.setText(Integer.toString(estamina2)+"/600");
+        }else if(lblPerso2.getText().equals("1")){
+            vida1-=personajefuego.getAtaqueFinal();
+            txtVida1.setText(Integer.toString(vida1)+"/1300");
+            estamina2-=personajefuego.getAtaqueFinal();
+            txtEstamina2.setText(Integer.toString(estamina2)+"/500");
+        }else if(lblPerso2.getText().equals("2")){
+            vida1-=personajetierra.getAtaqueFinal();
+            txtVida1.setText(Integer.toString(vida1)+"/1200");
+            estamina2-=personajetierra.getAtaqueFinal();
+            txtEstamina2.setText(Integer.toString(estamina2)+"/700");
+        }else if(lblPerso2.getText().equals("3")){
+            vida1-=personajeaire.getAtaqueFinal();
+            txtVida1.setText(Integer.toString(vida1)+"/950");
+            estamina2-=personajeaire.getAtaqueFinal();
+            txtEstamina2.setText(Integer.toString(estamina2)+"/400");
+        }
+        
+        turnoJ1();
+    }//GEN-LAST:event_btnAtaqueFinal2ActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    
+    public void turnoJ2 (){
+        
+        btnAtaque1.setEnabled(false);
+        btnAtaqueFinal1.setEnabled(false);
+        btnDefenza1.setEnabled(false);
+        btnCurar1.setEnabled(false);
+        btnAtaque2.setEnabled(true);
+        btnAtaqueFinal2.setEnabled(true);
+        btnDefenza2.setEnabled(true);
+        btnCurar2.setEnabled(true);
+        estamina2 = estamina2+10;
+        int i2=Integer.parseInt(lblPerso2.getText());
+        txtEstamina2.setText(estamina2+"/"+ListaPersonajes.get(i2).getEstamina());
+        if(estamina2<=0){
+            btnAtaque2.setEnabled(false);
+            btnAtaqueFinal2.setEnabled(false);
+        }
+    }
+    
+    public void turnoJ1 (){
+        
+        btnAtaque2.setEnabled(false);
+        btnAtaqueFinal2.setEnabled(false);
+        btnDefenza2.setEnabled(false);
+        btnCurar2.setEnabled(false);
+        btnAtaque1.setEnabled(true);
+        btnAtaqueFinal1.setEnabled(true);
+        btnDefenza1.setEnabled(true);
+        btnCurar1.setEnabled(true);
+        estamina1 = estamina1+10;
+        int i1=Integer.parseInt(lblPerso2.getText());
+        txtEstamina1.setText(estamina1+"/"+ListaPersonajes.get(i1).getEstamina());
+        if(estamina1<=0){
+            btnAtaque1.setEnabled(false);
+            btnAtaqueFinal1.setEnabled(false);
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1130,7 +1293,6 @@ public class SeleccionJugador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame PantallaBatalla;
-    private javax.swing.JFrame PantallaCargar;
     private javax.swing.JFrame RegistroJugador;
     private javax.swing.JButton bntSelectJugador2;
     private javax.swing.JButton btnAtaque1;
@@ -1144,10 +1306,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEmpezar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnJugar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrarJugador;
-    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSeleccionPersonaje;
     private javax.swing.JButton btnSelectJugador1;
     public static javax.swing.JComboBox<String> cmbJugador1;
@@ -1155,11 +1315,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbJugadores;
     private javax.swing.JComboBox<String> cmbPersonajes;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1180,6 +1337,8 @@ public class SeleccionJugador extends javax.swing.JFrame {
     private javax.swing.JLabel lblLuchador2;
     private javax.swing.JLabel lblNombreJugador1;
     private javax.swing.JLabel lblNombreJugador2;
+    private javax.swing.JLabel lblPerso1;
+    private javax.swing.JLabel lblPerso2;
     private javax.swing.JLabel lblPersonaje1;
     private javax.swing.JLabel lblPersonaje2;
     private javax.swing.JLabel lblPersonaje3;

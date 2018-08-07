@@ -5,6 +5,7 @@
  */
 package proyecto;
 
+
 /**
  *
  * @author Wendy Soto
@@ -18,7 +19,7 @@ public class Personajes {
     private int curacion;
     private int defensa; 
 
-    public Personajes(String nombre, int vida, int estamina, int ataque, int ataqueFinal, int curacion, int defensa) {
+    public Personajes(String nombre,int vida, int estamina, int ataque, int ataqueFinal, int curacion, int defensa) {
         this.nombre = nombre;
         this.vida = vida;
         this.estamina = estamina;
@@ -26,16 +27,21 @@ public class Personajes {
         this.ataqueFinal = ataqueFinal;
         this.curacion = curacion;
         this.defensa = defensa;
+        
     }
 
-    public String getNombre() {
-        return nombre;
+    public Personajes(int vida, int estamina, int ataque, int ataqueFinal) {
+        this.vida = vida;
+        this.estamina = estamina;
+        this.ataque = ataque;
+        this.ataqueFinal = ataqueFinal;
+
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public Personajes() {
     }
 
+    
     public int getVida() {
         return vida;
     }

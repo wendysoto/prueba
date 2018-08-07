@@ -19,16 +19,27 @@ public class ClsJugador implements Serializable{
     private String usuario;
     private int victorias;
 
-    public ClsJugador(int id, String nombre, String apellido,String cedula, String usuario,int victorias) {
+
+    public ClsJugador(String nombre, String apellido, String usuario, int victorias) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.usuario = usuario;
+        this.victorias = victorias;
+       
+    }
+
+    
+
+    public ClsJugador(int id, String nombre, String apellido, String cedula, String usuario, int victorias) {
+        this.id = id;
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.usuario = usuario;
-        this.id=id;
-        this.victorias=victorias;
-        
+        this.victorias = victorias;
     }
-
+    
+    
     public ClsJugador(String usuario) {
         this.usuario = usuario;
     }
